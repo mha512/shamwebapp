@@ -4,22 +4,21 @@ import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import ReactFlagsSelect from "react-flags-select";
 import { IconType } from "react-icons";
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaPython,
-  FaJava,
-} from "react-icons/fa";
-import {
-  SiNextdotjs,
-  SiDjango,
-  SiTailwindcss,
-  SiKotlin,
-  SiMailchimp,
-  SiGoogleadsense,
-} from "react-icons/si";
+
+// ✅ Fixed individual imports for react-icons
+import { FaHtml5 } from "react-icons/fa";
+import { FaCss3Alt } from "react-icons/fa";
+import { FaJs } from "react-icons/fa";
+import { FaReact } from "react-icons/fa";
+import { FaPython } from "react-icons/fa";
+import { FaJava } from "react-icons/fa";
+
+import { SiNextdotjs } from "react-icons/si";
+import { SiDjango } from "react-icons/si";
+import { SiTailwindcss } from "react-icons/si";
+import { SiKotlin } from "react-icons/si";
+import { SiMailchimp } from "react-icons/si";
+import { SiGoogleadsense } from "react-icons/si";
 
 export default function Home() {
   const [dark, setDark] = useState(true);
@@ -380,8 +379,8 @@ export default function Home() {
               }}
               placeholder="Select Country"
               className="flex-1"
-              selected={selectedCountry}                     // ✅ Fixed
-              onSelect={(code) => setSelectedCountry(code)} // ✅ Fixed
+              selected={selectedCountry}
+              onSelect={(code) => setSelectedCountry(code)}
             />
             <input
               type="tel"
@@ -416,25 +415,17 @@ export default function Home() {
             />
           </div>
 
-          <input
-            type="text"
-            placeholder="Nationality *"
-            required
-            className="px-4 py-3 rounded-lg border border-green-500 dark:bg-zinc-900"
-          />
-
           <textarea
-            placeholder="Your Message or Meeting Purpose *"
+            placeholder="Message"
             rows={4}
-            required
-            className="px-4 py-3 rounded-lg border border-green-500 dark:bg-zinc-900"
+            className="w-full px-4 py-3 rounded-lg border border-green-500 dark:bg-zinc-900"
           />
 
           <button
             type="submit"
             className="bg-green-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-green-400 transition-all mt-2"
           >
-            Schedule Meeting
+            Send Request
           </button>
         </form>
       </section>
