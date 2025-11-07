@@ -26,6 +26,9 @@ export default function Home() {
   const [filter, setFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
+  // ✅ Add selectedCountry state for ReactFlagsSelect
+  const [selectedCountry, setSelectedCountry] = useState<string>("US");
+
   useEffect(() => {
     document.body.classList.toggle("dark", dark);
   }, [dark]);
@@ -64,7 +67,6 @@ export default function Home() {
   const filteredProjects =
     filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
-  // Skills Array with IconType
   const skills: { name: string; icon: IconType; color: string }[] = [
     { name: "HTML", icon: FaHtml5, color: "text-orange-500" },
     { name: "CSS", icon: FaCss3Alt, color: "text-blue-500" },
@@ -89,7 +91,6 @@ export default function Home() {
           <h1 className="text-3xl font-extrabold tracking-tight hover:scale-105 transition-transform duration-300 cursor-pointer text-green-600 dark:text-green-400">
             M. Hashaam Ahmad
           </h1>
-
           <ul className="hidden md:flex gap-8 text-lg font-medium">
             {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
               <li key={item}>
@@ -103,7 +104,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-
           <div className="flex items-center gap-4">
             <button
               onClick={() => setDark(!dark)}
@@ -239,7 +239,6 @@ export default function Home() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
           {skills.map((skill) => {
             const Icon = skill.icon as React.ComponentType<{ className?: string }>;
-
             return (
               <div
                 key={skill.name}
@@ -349,7 +348,6 @@ export default function Home() {
             e.preventDefault();
             alert("Meeting request sent successfully!");
             (e.target as HTMLFormElement).reset();
-
           }}
           className="max-w-2xl mx-auto bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg flex flex-col gap-4"
         >
@@ -382,6 +380,8 @@ export default function Home() {
               }}
               placeholder="Select Country"
               className="flex-1"
+              selected={selectedCountry}                     // ✅ Fixed
+              onSelect={(code) => setSelectedCountry(code)} // ✅ Fixed
             />
             <input
               type="tel"
@@ -438,7 +438,7 @@ export default function Home() {
           </button>
         </form>
       </section>
-      
+
       {/* Footer Enhancement */}
       <footer className="py-12 bg-green-600 dark:bg-green-800 text-center text-white">
         <h4 className="text-xl font-semibold mb-4">Connect with Me</h4>
