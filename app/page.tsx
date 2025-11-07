@@ -1,8 +1,9 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import ReactFlagsSelect from "react-flags-select";
+import { IconType } from "react-icons";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -12,18 +13,18 @@ import {
   FaJava,
 } from "react-icons/fa";
 import {
-   SiNextdotjs,
+  SiNextdotjs,
   SiDjango,
   SiTailwindcss,
   SiKotlin,
-  SiMailchimp,      
+  SiMailchimp,
   SiGoogleadsense,
-  } from "react-icons/si";
+} from "react-icons/si";
 
 export default function Home() {
   const [dark, setDark] = useState(true);
   const [filter, setFilter] = useState("All");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
 
   useEffect(() => {
     document.body.classList.toggle("dark", dark);
@@ -63,8 +64,25 @@ export default function Home() {
   const filteredProjects =
     filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
+  // Skills Array with IconType
+  const skills: { name: string; icon: IconType; color: string }[] = [
+    { name: "HTML", icon: FaHtml5, color: "text-orange-500" },
+    { name: "CSS", icon: FaCss3Alt, color: "text-blue-500" },
+    { name: "JavaScript", icon: FaJs, color: "text-yellow-500" },
+    { name: "React", icon: FaReact, color: "text-sky-500" },
+    { name: "Next.js", icon: SiNextdotjs, color: "text-gray-800 dark:text-white" },
+    { name: "Django", icon: SiDjango, color: "text-green-700" },
+    { name: "Python", icon: FaPython, color: "text-yellow-400" },
+    { name: "TailwindCSS", icon: SiTailwindcss, color: "text-sky-400" },
+    { name: "Digital Marketing", icon: SiMailchimp, color: "text-pink-500" },
+    { name: "Google Ads", icon: SiGoogleadsense, color: "text-blue-600" },
+    { name: "Java", icon: FaJava, color: "text-red-500" },
+    { name: "Kotlin", icon: SiKotlin, color: "text-purple-500" },
+  ];
+
   return (
     <div className="min-h-screen bg-white text-black dark:bg-zinc-950 dark:text-white font-sans transition duration-500">
+
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white/70 dark:bg-zinc-900/80 backdrop-blur-md border-b border-green-500/30 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
@@ -168,7 +186,7 @@ export default function Home() {
         </div>
       </section>
 
-       {/* Enhanced About Section */}
+      {/* About Section */}
       <section id="about" className="px-8 md:px-20 py-20 bg-green-50 dark:bg-zinc-900">
         <h3 className="text-4xl font-extrabold mb-12 text-center text-green-600 dark:text-green-400 tracking-wide">
           About Me
@@ -210,7 +228,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* Skills Section */}
       <section
         id="skills"
@@ -220,30 +237,21 @@ export default function Home() {
           Professional Skills
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-           {[
-            { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-4xl" /> },
-            { name: "CSS", icon: <FaCss3Alt className="text-blue-500 text-4xl" /> },
-            { name: "JavaScript", icon: <FaJs className="text-yellow-500 text-4xl" /> },
-            { name: "React", icon: <FaReact className="text-sky-500 text-4xl" /> },
-            { name: "Next.js", icon: <SiNextdotjs className="text-gray-800 dark:text-white text-4xl" /> },
-            { name: "Django", icon: <SiDjango className="text-green-700 text-4xl" /> },
-            { name: "Python", icon: <FaPython className="text-yellow-400 text-4xl" /> },
-            { name: "TailwindCSS", icon: <SiTailwindcss className="text-sky-400 text-4xl" /> },
-            { name: "Digital Marketing", icon: <SiMailchimp className="text-pink-500 text-4xl" /> },
-            { name: "Google Ads", icon: <SiGoogleadsense className="text-blue-600 text-4xl" /> },
-            { name: "Java", icon: <FaJava className="text-red-500 text-4xl" /> },
-            { name: "Kotlin", icon: <SiKotlin className="text-purple-500 text-4xl" /> },
-          ].map((skill) => (
-            <div
-              key={skill.name}
-              className="bg-white/80 dark:bg-zinc-800/80 p-6 rounded-xl shadow-md hover:shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center justify-center gap-3"
-            >
-              {skill.icon}
-              <p className="text-lg font-semibold text-green-700 dark:text-green-300">
-                {skill.name}
-              </p>
-            </div>
-          ))}
+          {skills.map((skill) => {
+            const Icon = skill.icon as React.ComponentType<{ className?: string }>;
+
+            return (
+              <div
+                key={skill.name}
+                className="bg-white/80 dark:bg-zinc-800/80 p-6 rounded-xl shadow-md hover:shadow-2xl transform hover:scale-105 transition-all flex flex-col items-center justify-center gap-3"
+              >
+                <Icon className={`text-4xl ${skill.color}`} />
+                <p className="text-lg font-semibold text-green-700 dark:text-green-300">
+                  {skill.name}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -328,7 +336,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* Contact Section (Meeting Arrangement Form) */}
+      {/* Contact Section */}
       <section
         id="contact"
         className="px-8 md:px-20 py-20 bg-green-50 dark:bg-zinc-900 text-center"
@@ -340,7 +348,8 @@ export default function Home() {
           onSubmit={(e) => {
             e.preventDefault();
             alert("Meeting request sent successfully!");
-            e.target.reset();
+            (e.target as HTMLFormElement).reset();
+
           }}
           className="max-w-2xl mx-auto bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg flex flex-col gap-4"
         >
@@ -419,14 +428,16 @@ export default function Home() {
             rows={4}
             required
             className="px-4 py-3 rounded-lg border border-green-500 dark:bg-zinc-900"
-          ></textarea>
+          />
 
-          <button className="bg-green-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-green-400 transform hover:scale-105 transition-all">
-            Send Request
+          <button
+            type="submit"
+            className="bg-green-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-green-400 transition-all mt-2"
+          >
+            Schedule Meeting
           </button>
         </form>
       </section>
-
       
       {/* Footer Enhancement */}
       <footer className="py-12 bg-green-600 dark:bg-green-800 text-center text-white">
